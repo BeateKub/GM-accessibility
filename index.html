@@ -1,0 +1,85 @@
+<html>
+
+<head>
+<!-- this is just setting up the webpage as a leaflet page -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+<style>
+#mapid { height: 600px; }
+</style>
+
+</head>
+
+<body>
+<p> Greater Manchester Public Transport Accessibility Map </p>
+
+<div id="mapid"></div>
+
+<script>
+var centre = [53.483959,-2.244644]
+var mymap = L.map('mapid').setView(centre, 10);
+// This sets which measurement from the geojson to use
+var measurement = "GMALLevel";
+
+// -- this bit loads in your topographic map layer thingy 
+// https://leaflet-extras.github.io/leaflet-providers/preview/
+
+var Esri_WorldTopoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+}).addTo(mymap);
+
+
+
+
+
+// Add the Geojson Layer
+var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
+    pointToLayer: function(geoJsonPoint, latlng) {
+        return L.circle(latlng,{radius: 10});
+    },
+    style: function(feature) {
+        // Grab the measurement from the properties
+        var value = feature.properties[measurement];
+        // Setup the colours in increasing numbers (default first)
+        var colors = ['#cfe2ff', '#b3d0fc', '#99c2ff', '#fff7de', '#ffe89e', '#ffda5e', '#fcc91e', '#fca01e', '#fca01e'];
+        // Set the breakpoints
+        var breakpoints = [1, 2, 3, 4, 5, 6, 7, 8];
+        // Set the default colour
+        var color = colors[0];
+        // Loop round and test all the breakpoints. 
+        for (var i = 0; i < breakpoints.length; i++) {
+            // Finish if the value is less than the breakpoint
+            if (value < breakpoints[i]) break;
+            // Otherwise, set the colour, then test the next breakpoint
+            color = colors[i+1];
+        }
+        return {
+            stroke: true,
+            color: color,
+            fillOpacity: 0.9,
+        };
+    },
+}).bindPopup(function (layer) {
+    return layer.feature.properties[measurement];
+
+
+}).addTo(mymap);
+
+// add manchester authorities layer
+
+var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
+}).addTo(mymap);
+
+</script>
+
+</body>
+
+</html>
