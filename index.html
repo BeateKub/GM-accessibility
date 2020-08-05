@@ -77,13 +77,16 @@ var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
 
 var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
 }).addTo(mymap);
-
-var geojsonLayer = new L.GeoJSON.AJAX("Prestwich.geojson",{
-    pointToLayer: function(geoJsonPoint, latlng) {
-        return L.circle(latlng,{radius: 50,color:'#2564B9'});	
-    },
-}).addTo(mymap);	
 	
+// add Prestwich marker	
+var geojsonLayer = new L.GeoJSON.AJAX("Prestwich.geojson",{
+pointToLayer:function(geoJsonPoint, latlng) {
+    return L.circle(latlng,{radius:20,color:'#2564B9'});
+}});
+
+geojsonLayer.bindPopup(function (layer) {
+    return layer.feature.properties['Origin'];
+}).addTo(mymap);
 </script>
 
 </body>
