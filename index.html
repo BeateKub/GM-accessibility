@@ -37,9 +37,6 @@ var Esri_WorldTopoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 }).addTo(mymap);
 
 
-
-
-
 // Add the Geojson Layer
 var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
     pointToLayer: function(geoJsonPoint, latlng) {
@@ -75,8 +72,8 @@ var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
 
 // add manchester authorities layer
 
-// var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
-// }).addTo(mymap);
+var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
+}).addTo(mymap);
 	
 // add Prestwich marker	
 
@@ -87,7 +84,7 @@ pointToLayer:function(geoJsonPoint, latlng) {
 }});
 
 geojsonLayer.bindPopup(function (layer) {
-    return layer.feature.properties.['Origin'];
+    return layer.feature.properties['Origin'];
 }).addTo(mymap);
 </script>
 
