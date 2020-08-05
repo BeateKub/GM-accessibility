@@ -79,6 +79,7 @@ var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDat
 }).addTo(mymap);
 	
 // add Prestwich marker	
+var properties = "Origin";
 var geojsonLayer = new L.GeoJSON.AJAX("Prestwich.geojson",{
 pointToLayer:function(geoJsonPoint, latlng) {
     return L.circle(latlng,{radius:40,color:'#f542ce'});
