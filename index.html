@@ -78,6 +78,10 @@ var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
 var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
 }).addTo(mymap);
 
+var geojsonLayer = new L.GeoJSON.AJAX("Prestwich.geojson",{
+    pointToLayer: function(geoJsonPoint, latlng) {
+        return L.circle(latlng,{radius: 10,color:'#2564B9'});	
+	
 </script>
 
 </body>
