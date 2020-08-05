@@ -87,7 +87,7 @@ pointToLayer:function(geoJsonPoint, latlng) {
 }});
 
 geojsonLayer.bindPopup(function (layer) {
-    return layer.feature.properties[measurement];
+    return layer.feature.properties.measurement;
 }).addTo(mymap);
 </script>
 
