@@ -75,6 +75,12 @@ var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
 var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
 }).addTo(mymap);
 	
+// add commutes
+
+var geojsonLayer = new L.GeoJSON.AJAX("Prestwich_commutes_by_car.geojson",{
+}).addTo(map);
+	
+	
 // add Prestwich marker	
 
 
