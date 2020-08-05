@@ -75,11 +75,11 @@ var geojsonLayer = new L.GeoJSON.AJAX("GMAL_reduced.geojson",{
 
 // add manchester authorities layer
 
-var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
-}).addTo(mymap);
+// var geojsonLayer = new L.GeoJSON.AJAX("https://raw.githubusercontent.com/OpenDataManchester/gm-hex-map/master/gmauthorities.geojson",{
+// }).addTo(mymap);
 	
 // add Prestwich marker	
-var measurement = "Origin";
+
 
 var geojsonLayer = new L.GeoJSON.AJAX("Prestwich.geojson",{
 pointToLayer:function(geoJsonPoint, latlng) {
@@ -87,7 +87,7 @@ pointToLayer:function(geoJsonPoint, latlng) {
 }});
 
 geojsonLayer.bindPopup(function (layer) {
-    return layer.feature.properties.measurement;
+    return layer.feature.properties.['Origin'];
 }).addTo(mymap);
 </script>
 
